@@ -15,7 +15,7 @@
     }
     .page-wrap { max-width: 780px; margin: 0 auto; }
     .header { text-align: center; margin-bottom: 2.5rem; }
-    .header .logo { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #1B3A6B; margin-bottom: 0.75rem; }
+    .header .logo { font-size: 13px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #1a1a1a; margin-bottom: 0.75rem; }
     .header h1 { font-size: clamp(22px, 4vw, 32px); font-weight: 700; color: #1a1a1a; line-height: 1.2; margin-bottom: 0.6rem; }
     .header p { font-size: 15px; color: #666; max-width: 520px; margin: 0 auto; line-height: 1.6; }
     .card { background: #fff; border-radius: 16px; padding: 2rem; margin-bottom: 1.5rem; border: 1px solid #e8e8e5; }
@@ -31,11 +31,11 @@
     }
     input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none; appearance: none; width: 20px; height: 20px;
-      border-radius: 50%; background: #1B3A6B; cursor: pointer; border: 3px solid #fff;
+      border-radius: 50%; background: #1a1a1a; cursor: pointer; border: 3px solid #fff;
       box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
     input[type=range]::-moz-range-thumb {
-      width: 20px; height: 20px; border-radius: 50%; background: #1B3A6B;
+      width: 20px; height: 20px; border-radius: 50%; background: #1a1a1a;
       cursor: pointer; border: 3px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
     .slider-hints { display: flex; justify-content: space-between; font-size: 11px; color: #aaa; margin-top: 5px; }
@@ -47,14 +47,14 @@
     }
     .tab-btn .tab-name { display: block; font-weight: 600; font-size: 13px; }
     .tab-btn .tab-val { display: block; font-size: 12px; margin-top: 2px; color: #999; }
-    .tab-btn.active { background: #1B3A6B; color: #fff; border-color: #1B3A6B; }
+    .tab-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
     .tab-btn.active .tab-val { color: rgba(255,255,255,0.75); }
     .lift-btn {
       flex: 1; padding: 10px 8px; border-radius: 10px; border: 1.5px solid #ddd;
       font-size: 13px; font-weight: 600; cursor: pointer; background: #fafaf8;
       color: #666; text-align: center; transition: all 0.15s ease; font-family: inherit;
     }
-    .lift-btn.active { background: #1B3A6B; color: #fff; border-color: #1B3A6B; }
+    .lift-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
     .calc-note { font-size: 13px; color: #666; background: #f7f7f4; border-radius: 8px; padding: 0.6rem 0.9rem; margin-top: 0.75rem; line-height: 1.5; }
     .calc-note strong { color: #1a1a1a; }
     .results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 0; }
@@ -85,7 +85,7 @@
     .rp-val.green { color: #2C7A4B; }
     .rp-val.gold { color: #C9933A; }
     .footer { text-align: center; font-size: 12px; color: #bbb; padding-top: 1rem; padding-bottom: 2rem; }
-    .footer a { color: #1B3A6B; text-decoration: none; }
+    .footer a { color: #1a1a1a; text-decoration: none; }
     .c-red { color: #C0392B; }
     .c-green { color: #2C7A4B; }
     .c-gold { color: #C9933A; }
@@ -93,10 +93,10 @@
     .text-input {
       width: 110px; padding: 5px 10px; border-radius: 8px;
       border: 1.5px solid #ddd; font-size: 15px; font-weight: 700;
-      color: #1B3A6B; font-family: inherit; text-align: right;
+      color: #1a1a1a; font-family: inherit; text-align: right;
       background: #f7f7f4; outline: none; transition: border-color 0.15s;
     }
-    .text-input:focus { border-color: #1B3A6B; background: #fff; }
+    .text-input:focus { border-color: #1a1a1a; background: #fff; }
     @media (max-width: 520px) {
       .card { padding: 1.25rem; }
       .profit-row { flex-direction: column; }
@@ -109,9 +109,9 @@
 <div class="page-wrap">
 
   <div class="header">
-    <div class="logo">Ox Media Studio</div>
+    <div class="logo">Ad Leakage Calculator</div>
     <h1>How Much Are Your Ads Leaking?</h1>
-    <p>Enter your numbers below to see exactly how much revenue you're leaving on the table — and what changes with the Conversion Layer Method&#8482;.</p>
+    <p>Enter your numbers below to see exactly how much revenue you're leaving on the table and what changes with the Conversion Layer Method&#8482;.</p>
   </div>
 
   <div class="card">
@@ -182,13 +182,13 @@
     <div class="profit-row">
       <div class="profit-card">
         <div class="mlabel">Monthly revenue</div>
-        <div class="mval c-blue" id="profRevenue">$480,000</div>
+        <div class="mval" id="profRevenue">$480,000</div>
         <div class="msub">customers x job value</div>
       </div>
       <div class="profit-eq">&#8722;</div>
       <div class="profit-card">
         <div class="mlabel">Monthly ad spend</div>
-        <div class="mval c-blue" id="profAdSpend">$3,000</div>
+        <div class="mval" id="profAdSpend">$3,000</div>
         <div class="msub">your current budget</div>
       </div>
       <div class="profit-eq">=</div>
