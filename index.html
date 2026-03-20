@@ -77,7 +77,7 @@
     .pb-label { font-size: 12px; color: rgba(255,255,255,0.7); }
     .pb-val { font-size: 28px; font-weight: 700; color: #fff; line-height: 1.1; }
     .pb-sub { font-size: 12px; color: rgba(255,255,255,0.55); }
-    .result-panel { background: #fff; border-radius: 14px; border: 1px solid #e8e8e5; overflow: hidden; }
+    .result-panel { background: #fff; border-radius: 16px; border: 1px solid #e8e8e5; overflow: hidden; padding: 2rem; margin-bottom: 1.5rem; }
     .rp-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 1.25rem; border-bottom: 1px solid #f0f0ec; }
     .rp-row:last-child { border-bottom: none; }
     .rp-label { font-size: 14px; color: #666; }
@@ -126,11 +126,19 @@
     </div>
     <div class="slider-block">
       <div class="slider-top">
-        <label>Total monthly visitors from ads</label>
-        <input class="text-input" type="text" id="visitorsText" value="2,000">
+        <label>Cost Per Click (CPC)</label>
+        <input class="text-input" type="text" id="cpcText" value="$1.72">
       </div>
-      <input type="range" id="visitors" min="50" max="500000" step="50" value="2000">
-      <div class="slider-hints"><span>50</span><span>500,000</span></div>
+      <input type="range" id="cpc" min="0.01" max="1000" step="0.01" value="1.72">
+      <div class="slider-hints"><span>$0.01</span><span>$1,000</span></div>
+    </div>
+    <div class="slider-block">
+      <div class="slider-top">
+        <label>Jobs / sales closing from ads per month</label>
+        <input class="text-input" type="text" id="jobsClosingText" value="0">
+      </div>
+      <input type="range" id="jobsClosing" min="0" max="50000" step="1" value="0">
+      <div class="slider-hints"><span>0</span><span>50,000</span></div>
     </div>
     <div class="slider-block">
       <div class="slider-top">
@@ -141,16 +149,25 @@
       <div class="slider-hints"><span>$50</span><span>$100,000</span></div>
     </div>
   </div>
+    </div>
+  </div>
 
   <div class="card">
     <div class="section-label">Current close rate</div>
-    <div class="tab-group" id="closeGroup">
-      <button class="tab-btn" onclick="setClose(1, this)"><span class="tab-name">Below average</span><span class="tab-val">1%</span></button>
-      <button class="tab-btn active" onclick="setClose(3, this)"><span class="tab-name">Conservative</span><span class="tab-val">3%</span></button>
-      <button class="tab-btn" onclick="setClose(5, this)"><span class="tab-name">Moderate</span><span class="tab-val">5%</span></button>
-      <button class="tab-btn" onclick="setClose(6, this)"><span class="tab-name">Industry leader</span><span class="tab-val">6%</span></button>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:0.75rem;">
+      <div style="text-align:center;background:#f7f7f4;border-radius:10px;padding:1rem;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#999;margin-bottom:6px;">Est. Close Rate</div>
+        <div style="font-size:28px;font-weight:700;color:#1a1a1a;" id="closeRateDisplay">0%</div>
+      </div>
+      <div style="text-align:center;background:#f7f7f4;border-radius:10px;padding:1rem;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#999;margin-bottom:6px;">Est. Monthly Clicks</div>
+        <div style="font-size:28px;font-weight:700;color:#1a1a1a;" id="totalVisitorsDisplay">0</div>
+      </div>
+      <div style="text-align:center;background:#f7f7f4;border-radius:10px;padding:1rem;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:#999;margin-bottom:6px;">Customers / Month</div>
+        <div style="font-size:28px;font-weight:700;color:#1a1a1a;" id="calculatedCustomers">0</div>
+      </div>
     </div>
-    <div class="calc-note">At a <strong id="closeRateDisplay">3%</strong> close rate, <strong id="totalVisitorsDisplay">2,000</strong> visitors produces <strong id="calculatedCustomers">60</strong> customers per month.</div>
   </div>
 
   <div class="card">
@@ -207,7 +224,7 @@
       <button class="lift-btn" onclick="setLift(4, this)">Moderate 4%</button>
       <button class="lift-btn" onclick="setLift(7, this)">Aggressive 7%</button>
     </div>
-    <div class="calc-note">With a <strong id="newCloseDisplay">5%</strong> close rate, the same <strong id="sameVisitorsDisplay">2,000</strong> visitors now produces <strong id="newCustomersDisplay">100</strong> customers per month &#8212; no extra ad spend.</div>
+    <div class="calc-note">With a <strong id="newCloseDisplay">5%</strong> close rate, the same <strong id="sameVisitorsDisplay">0</strong> clicks now produces <strong id="newCustomersDisplay">0</strong> customers per month &#8212; no extra ad spend.</div>
 
     <div class="section-label" style="margin-top:1.5rem; margin-bottom:1.25rem;">Where your money is going tomorrow</div>
     <div class="results-grid" style="margin-bottom:1.5rem;">
@@ -273,7 +290,7 @@
     </div>
   </div>
 
-  <div class="result-panel" style="margin-bottom:2rem;">
+  <div class="result-panel">
     <div class="rp-row" style="background:#fafaf8; border-bottom:1px solid #eee;">
       <span class="rp-label" style="font-weight:600; color:#333;">Full breakdown</span>
       <span class="rp-val" style="color:#999; font-size:12px; font-weight:400;">Based on your inputs</span>
@@ -289,14 +306,14 @@
   </div>
 
   <div class="footer">
-    Built by <a href="mailto:Lonnie@oxmediastudio.com">Ox Media Studio</a> &#8212; The Conversion Layer Method&#8482;
+    Built by Ox Media Studio &#8212; The Conversion Layer Method&#8482;
   </div>
 
 </div>
 
 <script>
-  var liftPct = 2;
   var closeRate = 3;
+  var liftPct   = 2;
 
   function setClose(val, btn) {
     var btns = document.querySelectorAll('#closeGroup .tab-btn');
@@ -314,9 +331,8 @@
     calculate();
   }
 
-  // Strip $ and commas, return clean number
   function parseInput(str) {
-    var n = Math.round(parseFloat(str.replace(/[$,]/g, '')) || 0);
+    var n = Math.round(parseFloat((str + '').replace(/[$,]/g, '')) || 0);
     return isNaN(n) ? 0 : n;
   }
 
@@ -331,7 +347,7 @@
   function fmtM(n) {
     n = Math.round(n);
     if (n >= 1000000) return '$' + (n / 1000000).toFixed(1) + 'M';
-    if (n >= 1000) return '$' + Math.round(n / 1000) + 'k';
+    if (n >= 1000)    return '$' + Math.round(n / 1000) + 'k';
     return '$' + n;
   }
 
@@ -339,37 +355,43 @@
     return '$' + Math.round(n).toLocaleString();
   }
 
-  // Sync slider -> text box
   function syncSliderToText(sliderId, textId, dollar) {
     var v = getSliderVal(sliderId);
     document.getElementById(textId).value = fmtDisplay(v, dollar);
   }
 
-  // Sync text box -> slider (clamp to slider range)
   function syncTextToSlider(textId, sliderId) {
-    var raw = parseInput(document.getElementById(textId).value);
+    var raw    = parseInput(document.getElementById(textId).value);
     var slider = document.getElementById(sliderId);
-    var min = parseFloat(slider.min);
-    var max = parseFloat(slider.max);
-    var clamped = Math.min(max, Math.max(min, raw));
-    slider.value = clamped;
+    var min    = parseFloat(slider.min);
+    var max    = parseFloat(slider.max);
+    slider.value = Math.min(max, Math.max(min, raw));
   }
 
   function calculate() {
-    var adSpend  = getSliderVal('adSpend');
-    var visitors = getSliderVal('visitors');
-    var jobValue = getSliderVal('jobValue');
-    var cost = 1499;
+    var adSpend     = getSliderVal('adSpend');
+    var cpc         = parseFloat(document.getElementById('cpc').value) || 1.72;
+    var jobsClosing = getSliderVal('jobsClosing');
+    var jobValue    = getSliderVal('jobValue');
+    var cost        = 1499;
 
-    var curCustomers = Math.round(visitors * closeRate / 100);
-    var leaked       = visitors - curCustomers;
+    // Derive clicks from ad spend / CPC
+    var visitors = cpc > 0 ? Math.round(adSpend / cpc) : 0;
+
+    // Always derive close rate from jobs closing / clicks
+    var effectiveClose = (jobsClosing > 0 && visitors > 0)
+      ? parseFloat((jobsClosing / visitors * 100).toFixed(2))
+      : 0;
+
+    var curCustomers = jobsClosing > 0 ? jobsClosing : 0;
+    var leaked       = Math.max(0, visitors - curCustomers);
     var curRevMo     = curCustomers * jobValue;
     var leakedRevYr  = leaked * jobValue * 12;
     var profitMo     = curRevMo - adSpend;
 
-    var newCloseRate = Math.min(100, closeRate + liftPct);
+    var newCloseRate = Math.min(100, effectiveClose + liftPct);
     var newCustomers = Math.round(visitors * newCloseRate / 100);
-    var extraPerMo   = newCustomers - curCustomers;
+    var extraPerMo   = Math.max(0, newCustomers - curCustomers);
     var extraRevMo   = extraPerMo * jobValue;
     var extraRevYr   = extraRevMo * 12;
     var newRevMo     = newCustomers * jobValue;
@@ -380,26 +402,29 @@
     var paybackStr = '&#8212;';
     if (extraRevMo > 0) {
       var days = Math.ceil(cost / extraRevMo * 30);
-      if (days <= 1) paybackStr = '< 1 day';
-      else if (days < 30) paybackStr = days + ' days';
-      else paybackStr = Math.round(days / 30) + ' month(s)';
+      if (days <= 1)       paybackStr = '< 1 day';
+      else if (days < 30)  paybackStr = days + ' days';
+      else                 paybackStr = Math.round(days / 30) + ' month(s)';
     }
 
-    document.getElementById('closeRateDisplay').textContent     = closeRate + '%';
+    // Close rate card
+    document.getElementById('closeRateDisplay').textContent     = effectiveClose.toFixed(2) + '%';
     document.getElementById('totalVisitorsDisplay').textContent = visitors.toLocaleString();
     document.getElementById('calculatedCustomers').textContent  = curCustomers.toLocaleString();
 
+    // Current performance
     document.getElementById('curCustomers').textContent = curCustomers.toLocaleString();
     document.getElementById('curRev').textContent       = fmtM(curRevMo);
     document.getElementById('leakedLeads').textContent  = leaked.toLocaleString();
     document.getElementById('leakedRev').textContent    = fmtM(leakedRevYr);
 
-    document.getElementById('profRevenue').textContent = fmtFull(curRevMo);
-    document.getElementById('profAdSpend').textContent = fmtFull(adSpend);
-    document.getElementById('profProfit').textContent  = fmtFull(profitMo);
-    document.getElementById('profProfit').className    = 'mval ' + (profitMo >= 0 ? 'c-green' : 'c-red');
+    document.getElementById('profRevenue').textContent  = fmtFull(curRevMo);
+    document.getElementById('profAdSpend').textContent  = fmtFull(adSpend);
+    document.getElementById('profProfit').textContent   = fmtFull(profitMo);
+    document.getElementById('profProfit').className     = 'mval ' + (profitMo >= 0 ? 'c-green' : 'c-red');
 
-    document.getElementById('newCloseDisplay').textContent     = newCloseRate + '%';
+    // After OxMedia
+    document.getElementById('newCloseDisplay').textContent     = newCloseRate.toFixed(1) + '%';
     document.getElementById('sameVisitorsDisplay').textContent = visitors.toLocaleString();
     document.getElementById('newCustomersDisplay').textContent = newCustomers.toLocaleString();
 
@@ -413,10 +438,9 @@
     document.getElementById('newProfProfit').textContent  = fmtFull(newProfitMo);
     document.getElementById('newProfProfit').className    = 'mval ' + (newProfitMo >= 0 ? 'c-green' : 'c-red');
 
-    document.getElementById('paybackVal').innerHTML = paybackStr;
-    document.getElementById('paybackSub').textContent = extraRevYr > 0 ? 'then ' + fmtM(extraRevYr) + ' in annual gain' : 'adjust lift or job value';
-    document.getElementById('roiVal').textContent     = extraRevYr > 0 ? roi.toLocaleString() + '%' : '&#8212;';
-
+    document.getElementById('paybackVal').innerHTML       = paybackStr;
+    document.getElementById('paybackSub').textContent     = extraRevYr > 0 ? 'then ' + fmtM(extraRevYr) + ' in annual gain' : 'adjust lift or job value';
+    document.getElementById('roiVal').textContent         = extraRevYr > 0 ? roi.toLocaleString() + '%' : '&#8212;';
     document.getElementById('extraCustomersBD').textContent = extraPerMo.toLocaleString();
     document.getElementById('extraRevMoBD').textContent     = fmtFull(extraRevMo);
     document.getElementById('extraRevYr').textContent       = fmtFull(extraRevYr);
@@ -425,13 +449,18 @@
     document.getElementById('roiPct').textContent           = extraRevYr > 0 ? roi.toLocaleString() + '%' : '&#8212;';
   }
 
-  // Slider events -> update text box + recalculate
+  // ── SLIDER EVENTS ──
   document.getElementById('adSpend').addEventListener('input', function() {
     syncSliderToText('adSpend', 'adSpendText', true);
     calculate();
   });
-  document.getElementById('visitors').addEventListener('input', function() {
-    syncSliderToText('visitors', 'visitorsText', false);
+  document.getElementById('cpc').addEventListener('input', function() {
+    var v = parseFloat(this.value) || 1.72;
+    document.getElementById('cpcText').value = '$' + v.toFixed(2);
+    calculate();
+  });
+  document.getElementById('jobsClosing').addEventListener('input', function() {
+    syncSliderToText('jobsClosing', 'jobsClosingText', false);
     calculate();
   });
   document.getElementById('jobValue').addEventListener('input', function() {
@@ -439,7 +468,7 @@
     calculate();
   });
 
-  // Text box events -> update slider + recalculate
+  // ── TEXT BOX EVENTS ──
   document.getElementById('adSpendText').addEventListener('input', function() {
     syncTextToSlider('adSpendText', 'adSpend');
     calculate();
@@ -448,12 +477,23 @@
     syncSliderToText('adSpend', 'adSpendText', true);
   });
 
-  document.getElementById('visitorsText').addEventListener('input', function() {
-    syncTextToSlider('visitorsText', 'visitors');
+  document.getElementById('cpcText').addEventListener('input', function() {
+    var raw = parseFloat(this.value.replace(/[$,]/g, '')) || 1.72;
+    var slider = document.getElementById('cpc');
+    slider.value = Math.min(1000, Math.max(0.01, raw));
     calculate();
   });
-  document.getElementById('visitorsText').addEventListener('blur', function() {
-    syncSliderToText('visitors', 'visitorsText', false);
+  document.getElementById('cpcText').addEventListener('blur', function() {
+    var v = parseFloat(document.getElementById('cpc').value) || 1.72;
+    this.value = '$' + v.toFixed(2);
+  });
+
+  document.getElementById('jobsClosingText').addEventListener('input', function() {
+    syncTextToSlider('jobsClosingText', 'jobsClosing');
+    calculate();
+  });
+  document.getElementById('jobsClosingText').addEventListener('blur', function() {
+    syncSliderToText('jobsClosing', 'jobsClosingText', false);
   });
 
   document.getElementById('jobValueText').addEventListener('input', function() {
@@ -464,6 +504,7 @@
     syncSliderToText('jobValue', 'jobValueText', true);
   });
 
+  // Init
   calculate();
 </script>
 </body>
