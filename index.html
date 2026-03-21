@@ -220,11 +220,11 @@
   <div class="card">
     <div class="section-label">Your ad performance increase after Ox Media Studio</div>
     <div class="tab-group" id="liftGroup">
-      <button class="lift-btn active" onclick="setLift(2, this)">Conservative 2%</button>
-      <button class="lift-btn" onclick="setLift(4, this)">Moderate 4%</button>
-      <button class="lift-btn" onclick="setLift(7, this)">Aggressive 7%</button>
+      <button class="lift-btn active" onclick="setLift(1.5, this)">Conservative 1.5x</button>
+      <button class="lift-btn" onclick="setLift(2, this)">Moderate 2x</button>
+      <button class="lift-btn" onclick="setLift(3, this)">Aggressive 3x</button>
     </div>
-    <div class="calc-note">With a <strong id="newCloseDisplay">5%</strong> close rate, the same <strong id="sameVisitorsDisplay">0</strong> clicks now produces <strong id="newCustomersDisplay">0</strong> customers per month &#8212; no extra ad spend.</div>
+    <div class="calc-note">With a <strong id="newCloseDisplay">0%</strong> close rate (<strong id="liftMultDisplay">1.5x</strong> improvement), the same <strong id="sameVisitorsDisplay">0</strong> clicks now produces <strong id="newCustomersDisplay">0</strong> customers per month &#8212; no extra ad spend.</div>
 
     <div class="section-label" style="margin-top:1.5rem; margin-bottom:1.25rem;">Where your money is going tomorrow</div>
     <div class="results-grid" style="margin-bottom:1.5rem;">
@@ -313,7 +313,7 @@
 
 <script>
   var closeRate = 3;
-  var liftPct   = 2;
+  var liftPct   = 1.5;
 
   function setClose(val, btn) {
     var btns = document.querySelectorAll('#closeGroup .tab-btn');
@@ -389,7 +389,7 @@
     var leakedRevYr  = leaked * jobValue * 12;
     var profitMo     = curRevMo - adSpend;
 
-    var newCloseRate = Math.min(100, effectiveClose + liftPct);
+    var newCloseRate = Math.min(100, effectiveClose * liftPct);
     var newCustomers = Math.round(visitors * newCloseRate / 100);
     var extraPerMo   = Math.max(0, newCustomers - curCustomers);
     var extraRevMo   = extraPerMo * jobValue;
@@ -424,7 +424,8 @@
     document.getElementById('profProfit').className     = 'mval ' + (profitMo >= 0 ? 'c-green' : 'c-red');
 
     // After OxMedia
-    document.getElementById('newCloseDisplay').textContent     = newCloseRate.toFixed(1) + '%';
+    document.getElementById('newCloseDisplay').textContent     = newCloseRate.toFixed(2) + '%';
+    document.getElementById('liftMultDisplay').textContent     = liftPct + 'x';
     document.getElementById('sameVisitorsDisplay').textContent = visitors.toLocaleString();
     document.getElementById('newCustomersDisplay').textContent = newCustomers.toLocaleString();
 
